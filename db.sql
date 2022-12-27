@@ -39,3 +39,9 @@ CREATE TABLE answers (
     FOREIGN KEY (question_id) REFERENCES questions(question_id)
 );
 
+
+# insert test data into db
+INSERT INTO `users`(`user_id`, `firstname`, `lastname`, `username`, `email`, `password`) VALUES ('25614802-8592-11ed-a1eb-0242ac120002','Shenal','Fernando','coderx','shenal.fernando10@gmail.com','test-password')
+INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('d5359d7e-8591-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 1','Test Body')
+INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('80f12084-8592-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 2','Test Body')
+INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('c9b4fa8e-8592-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 3','Test Body')
