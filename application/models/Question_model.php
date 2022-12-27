@@ -7,7 +7,7 @@
         // get questions (with or without id)
         public function get_questions($id = null) {
             if($id === null) {
-                $this->db->order_by('question_id', 'DESC');
+                $this->db->order_by('createdAt', 'DESC');
                 $query = $this->db->get('questions');
                 return $query->result_array();
             } 
@@ -24,16 +24,31 @@
 
         // update the question
         public function update_question($question_id, $data) {
-            $this->db->where('question-id', $question_id);
+            $this->db->where('question_id', $question_id);
             return $this->db->update('questions', $data);
         }
 
 
         // delete the question
         public function delete_question($question_id) {
-            $this->db->where('question-id', $question_id);
+            $this->db->where('question_id', $question_id);
             $this->db->delete('questions');
             return true;
+        }
+
+        // increase votes
+        public function increase_votes($question_id) {
+            $this->db->where('question_id', $question_id);
+            $this->db->set('votes', 'votes+1', FALSE);
+            $this->db->update('questions');
+            return true;
+        }
+
+        // decrease votes
+        public function decrease_votes($question_id) {
+            $this->db->where('question_id', $question_id);
+            $this->db->set('votes', 'votes-1', FALSE);
+            $this->db->update('questions');
         }
     }
 

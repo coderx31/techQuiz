@@ -43,7 +43,7 @@
         }
 
         // get questions (all or with id)
-        public function questions_get() {
+        public function get_get() {
             $id = $this->get('id');
             $questions = $this->question_model->get_questions($id);
             if($questions) {
@@ -64,7 +64,7 @@
         }
 
         // create question
-        public function questions_post() {
+        public function create_post() {
 
             $user_id = '25614802-8592-11ed-a1eb-0242ac120002';
             $title = $this->post('title');
@@ -93,13 +93,12 @@
         }
 
         // update question
-        public function questions_put() {
+        public function update_put($question_id) {
             // need to update the updateAt timestamp and updated value
             // get the details from parameters
-            $question_id = $this->post('question_id');
             $user_id = '25614802-8592-11ed-a1eb-0242ac120002';
-            $title = $this->post('title');
-            $body = $this->post('body');
+            $title = $this->put('title');
+            $body = $this->put('body');
             if( $user_id === "" || $title === "" || $body === "" ) {
                 $this->response([
                     'code' => -1,
@@ -128,8 +127,7 @@
         }
 
         // delete question
-        public function delete_delete() {
-            $question_id = $this->delete('question_id');
+        public function delete_delete($question_id) {
             if ($question_id === null || $question_id === "" ) {
                 $this->response([
                     'code' => -1,
@@ -139,6 +137,41 @@
             }
             $result = $this->question_model->delete_question($question_id);
             $this->response([], 204);
+        }
+
+        // increase votes
+        public function upvote_put($question_id) {
+            if($question_id === null || $question_id === "" ) {
+                $this->response([
+                    'code' => -1,
+                    'error' => 'mandatory parameters are missing',
+                    'result' => null
+                ], 400);
+            }
+            $result = $this->question_model->increase_votes($question_id);
+            $this->response([
+                'code' => 0,
+                'error' => null,
+                'result' => $result
+            ], 200);
+        }
+
+
+        // decrease votes
+        public function downvote_put($question_id) {
+            if($question_id === null || $question_id === "" ) {
+                $this->response([
+                    'code' => -1,
+                    'error' => 'mandatory parameters missing',
+                    'result' => null
+                ], 400);
+            }
+            $result = $this->question_model->decrease_votes($question_id);
+            $this->response([
+                'code' => 0,
+                'error' => null,
+                'result' => $result
+            ], 200);
         }
     }
 
