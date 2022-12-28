@@ -29,6 +29,7 @@
                 ], 400);
             } else {
                 $data = array(
+                    'user_id' => Uuid::uuid1(),
                     'firstname' => $firstname,
                     'lastname' => $lastname,
                     'username' => $username,
@@ -60,6 +61,49 @@
         // user logout
         public function logout_post() {
             // to be implemented
+        }
+
+        public function isEmailAvailable_get() {
+            // get the email
+            // check in db
+            // return the response
+            $email = $this->get('email');
+            if(!$email) {
+                $this->response([
+                    'code' => -1,
+                    'error' => 'email is empty',
+                    'result' => null
+                ], 400);
+            }
+
+            $result = $this->user_model->check_email_exists($email);
+            $this->response([
+                'code' => 0,
+                'error' => null,
+                'result' => $result
+            ], 200);
+
+        }
+
+        public function isUsernameAvailable_get() {
+            // get the username
+            // check in db
+            // return the response
+            $username = $this->get('username');
+            if (!$username) {
+                $this->response([
+                    'code' => -1,
+                    'error' => 'username is empty',
+                    'result' => null
+                ], 200);
+            }
+
+            $result = $this->user_model->check_username_exists($username);
+            $this->response([
+                'code' => 0,
+                'error' => null,
+                'result' => $result
+            ], 200);
         }
     }
 
