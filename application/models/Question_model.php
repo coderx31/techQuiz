@@ -7,6 +7,8 @@
         // get questions (with or without id)
         public function get_questions($id = null) {
             if($id === null) {
+                // if fetching all questions, no need all details
+                $this->db->select('title, votes');
                 $this->db->order_by('createdAt', 'DESC');
                 $query = $this->db->get('questions');
                 return $query->result_array();

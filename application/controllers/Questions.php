@@ -46,11 +46,18 @@
         public function get_get() {
             $id = $this->get('id');
             $questions = $this->question_model->get_questions($id);
+            $answers = null;
+            if($id){
+                $answers = $this->answer_model->get_answers($id);
+            }
             if($questions) {
                 $data = array(
                     'code' => 0,
                     'error' => null,
-                    'result' => $questions
+                    'result' => [
+                        'questions' => $questions,
+                        'answers' => $answers
+                    ]
                 );
                 $this->response($data, 200);
             } else {
