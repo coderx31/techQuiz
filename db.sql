@@ -45,3 +45,6 @@ INSERT INTO `users`(`user_id`, `firstname`, `lastname`, `username`, `email`, `pa
 INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('d5359d7e-8591-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 1','Test Body')
 INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('80f12084-8592-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 2','Test Body')
 INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('c9b4fa8e-8592-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 3','Test Body')
+INSERT INTO `answers`(`answer_id`, `body`, `user_id`, `question_id`) VALUES ('f0b8bb72-8653-11ed-a1eb-0242ac120002','test answer body','25614802-8592-11ed-a1eb-0242ac120002','d5359d7e-8591-11ed-a1eb-0242ac120002')
+INSERT INTO `answers`(`answer_id`, `body`, `user_id`, `question_id`) VALUES ('7b896d00-8654-11ed-a1eb-0242ac120002','test answer body 2','25614802-8592-11ed-a1eb-0242ac120002','d5359d7e-8591-11ed-a1eb-0242ac120002')
+INSERT INTO `answers`(`answer_id`, `body`, `user_id`, `question_id`) VALUES ('9c3020d0-8654-11ed-a1eb-0242ac120002','test answer body 3','25614802-8592-11ed-a1eb-0242ac120002','d5359d7e-8591-11ed-a1eb-0242ac120002')
