@@ -14,7 +14,7 @@
         public function login($data) {
             // to be implemented
             $this->db->where('username',$data['username']);
-            $this->db->where('password', $data['password']);
+           // $this->db->where('password', $data['password']);
 
             $result = $this->db->get('users');
             if($result->num_rows() == 1) {
@@ -35,9 +35,9 @@
         public function check_email_exists($email) {
             $query = $this->db->get_where('users', array( 'email' => $email ));
             if(empty($query->row_array())) {
-                return true;
-            } else {
                 return false;
+            } else {
+                return true;
             }
         }
 
@@ -46,9 +46,9 @@
             // to be implemented
             $query = $this->db->get_where('users', array( 'username' => $username ));
             if(empty($query->row_array())) {
-                return true;
-            } else {
                 return false;
+            } else {
+                return true;
             }
         }
     }
