@@ -27,6 +27,7 @@
                     ], 404);
                 }
             } catch (Exception $e) {
+                // TODO need to update the error message and added the loggin support when ready to release
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),

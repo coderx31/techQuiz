@@ -5,12 +5,14 @@
         }
 
         // get questions (with or without id)
-        public function get_questions($id = null) {
-            if($id === null) {
-                // if fetching all questions, no need all details
+        public function get_questions($id = null, $page = null) {
+            if($id === null && $page !== null) {
+                // if fetching all questions, no need all details with agination support
+                $limit = 5; // TODO -> need to migrate this value to config
+                $offset = ($page - 1) * $limit;
                 $this->db->select('title, votes');
                 $this->db->order_by('createdAt', 'DESC');
-                $query = $this->db->get('questions');
+                $query = $this->db->get('questions', $limit, $offset);
                 return $query->result_array();
             } 
 

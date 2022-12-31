@@ -44,36 +44,63 @@
 
         // get questions (all or with id)
         public function get_get() {
-           try {
-                $id = $this->get('id');
-                $questions = $this->question_model->get_questions($id);
+            try {
+                $question_id = $this->get('question_id');
+                $page = $this->get('page');
+
+                $questions = null;
                 $answers = null;
-                if($id){
-                    $answers = $this->answer_model->get_answers($id);
-                }
-                if($questions) {
-                    $data = array(
-                        'code' => 0,
-                        'error' => null,
-                        'result' => [
-                            'questions' => $questions,
-                            'answers' => $answers
-                        ]
-                    );
-                    $this->response($data, 200);
+
+                if ($question_id){
+                    // fetch the related question with all the details
+                    $questions = $this->question_model->get_questions($question_id);
+                    $answers   =  $this->answer_model->gwt_answers($question_id);
+
+                    if ($questions) {
+                        $this->response([
+                            'code' => 0,
+                            'error' => null,
+                            'result' => [
+                                'questions' => $questions,
+                                'answers' => $answers
+                            ]
+                        ], 200);
+                    } else {
+                        $this->response([
+                            'code' => -1,
+                            'error' => 'no question found for given id',
+                            'result' => null
+                        ], 404);
+                    }
+                    
                 } else {
-                    $this->response([
-                        'status' => false,
-                        'message' => 'No questions yet'
-                    ], 404);
+                    // need to get the all the questions with the help of pagination
+                    if (!$page) {
+                        $page = 1;
+                    }
+                    $questions = $this->question_model->get_questions(null, $page);
+                    if ($questions) {
+                        $this->response([
+                            'code' => 0,
+                            'error' => null,
+                            'result' => $questions
+                        ], 200);
+                    } else {
+                        $this->response([
+                            'code' => -1,
+                            'error' => null,
+                            'result' => null
+                        ], 404);
+                    }
                 }
-           } catch(Exception $e) {
+
+            } catch (Exception $e) {
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
                     'result' => null
                 ], 500);
-           }
+            }
         }
 
         // create question
