@@ -58,6 +58,7 @@
                     ], 200);
                 }
             } catch (Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -105,6 +106,7 @@
                     ],200);
                 }
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -128,6 +130,7 @@
                     'result' => 'user logged out successfully'
                 ], 200);
            } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -157,6 +160,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -187,6 +191,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code'=> -1,
                     'error' => $e->getMessage(),

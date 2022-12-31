@@ -28,6 +28,7 @@
                 }
             } catch (Exception $e) {
                 // TODO need to update the error message and added the loggin support when ready to release
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -65,6 +66,7 @@
                     'result' => $result
                 ], 201);
             } catch (Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -96,6 +98,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error'=> $e->getMessage(),
@@ -118,6 +121,7 @@
                 $result = $this->answer_model->delete_answer($answer_id);
                 $this->response([], 204);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => 1,
                     'error' => $e->getMessage(),
@@ -144,6 +148,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+               log_message('error', 'error =>'.$e->getMessage());
                $this->response([
                 'code' => -1,
                 'error' => $e->getMessage(),
@@ -170,6 +175,7 @@
                 'result' => $result
             ], 200);
            } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),

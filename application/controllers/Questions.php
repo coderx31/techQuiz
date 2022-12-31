@@ -95,6 +95,7 @@
                 }
 
             } catch (Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -131,6 +132,7 @@
                     'result' => $result
                 ], 201);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -172,6 +174,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -194,6 +197,7 @@
                 $result = $this->question_model->delete_question($question_id);
                 $this->response([], 204);
            } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -219,6 +223,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
@@ -245,6 +250,7 @@
                     'result' => $result
                 ], 200);
             } catch(Exception $e) {
+                log_message('error', 'error =>'.$e->getMessage());
                 $this->response([
                     'code' => -1,
                     'error' => $e->getMessage(),
