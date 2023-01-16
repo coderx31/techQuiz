@@ -20,6 +20,13 @@
             return $query->row_array();
         }
 
+        // get created user id
+        public function get_user($question_id) {
+            $this->db->select('user_id');
+            $query = $this->db->get_where('questions', array('question_id' => $question_id));
+            return $query->row_array();
+        }
+
         // create a question -> TODO need to add user validation
         public function create_question($data) {
             return $this->db->insert('questions', $data);

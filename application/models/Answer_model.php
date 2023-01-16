@@ -17,6 +17,12 @@
             return $query->result_array();
         }
 
+        public function get_user($answer_id) {
+            $this->db->seelct('user_id');
+            $query = $this->db->get_where('answers', array('answer_id' => $answer_id));
+            return $query->row_array();
+        }
+
         // create answer
         public function create_answer($data) {
             return $this->db->insert('answers', $data);
