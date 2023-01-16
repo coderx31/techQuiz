@@ -532,4 +532,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['password_salt'] = 'coderx3134';
+$config['jwt_key'] = 'example_key';

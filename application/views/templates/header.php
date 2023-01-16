@@ -19,12 +19,12 @@
         <header>
             <a href="<?php echo base_url(); ?>home"><img src="<?php echo base_url(); ?>assets/images/logo.jpg" class="logo" > </a>
             <ul class="navigation">
-                <li><a href="<?php echo base_url(); ?>">Home</a></li>
-                <li><a href="<?php echo base_url(); ?>about">About</a></li>
-                <li><a href="<?php echo base_url(); ?>contact">Contact</a></li>
-                <li><a href="<?php echo base_url(); ?>questions">Questions</a></li>
-                <li><a href="<?php echo base_url(); ?>users/login">Login</a></li>
-                <li><a href="<?php echo base_url(); ?>users/register">Register</a></li>
-                <li><a href="#">Logout</a></li>
+                <li id="homeTab"><a href="<?php echo base_url(); ?>">Home</a></li>
+                <li id="aboutTab"><a href="<?php echo base_url(); ?>about">About</a></li>
+                <li id="contactTab"><a href="<?php echo base_url(); ?>contact">Contact</a></li>
+                <li id="questionTab"><a href="<?php echo base_url(); ?>questions">Questions</a></li>
+                <li id="loginTab"><a href="<?php echo base_url(); ?>users/login">Login</a></li>
+                <li id="registerTab"><a href="<?php echo base_url(); ?>users/login#/register">Register</a></li>
+                <li id="logoutTab"><a href="#">Logout</a></li>
             </ul>
         </header>

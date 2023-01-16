@@ -136,6 +136,8 @@ function allQuestionsView() {
         render: function() {
             console.log('questions running');
             console.log(this.collection.toJSON());
+
+            console.log(localStorage.getItem('token'));
     
             this.$el.html(this.template({
                 questions: this.collection.toJSON()
@@ -179,6 +181,9 @@ function questionView(question_id) {
         el: '#content',
         template: _.template($('#question-template').html()),
         model: question,
+        events: {
+            'submit': 'onSubmit'
+        },
         initialize: function() {
             this.render();
         },
@@ -187,6 +192,38 @@ function questionView(question_id) {
             this.$el.html(this.template({
                 question: this.model.toJSON()
             }))
+        },
+        onSubmit: function(e) {
+            e.preventDefault();
+
+            const Answer = Backbone.Model.extend();
+
+            const answer = new Answer();
+
+            answer.set({
+                question_id: this.model.questions.question_id,
+                body: $('#body')
+            });
+
+            console.log(answer.toJSON());
+
+            answer.save(
+                {},
+                {
+                    url: '',
+                    headers: {
+                        'x-auth': localStorage.getItem('token')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        window.location.reload(true);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                }
+            )
+
         }
     });
 
@@ -196,27 +233,52 @@ function questionView(question_id) {
 // askQuestionView function
 
 function askQuestionView() {
-    // const Question = Backbone.Model.extend({
-    //     url: 'create-question-url'
-    // });
+    const Question = Backbone.Model.extend();
 
-    // const question = new Question();
-
-    // question.create();
-
-    // console.log(question.toJSON());
+    const question = new Question();
 
     const AskQuestion = Backbone.View.extend({
         el: '#content',
         template: _.template($('#ask-question').html()),
+        model: question,
+        events: {
+            "submit": 'onSubmit'
+        },
         initialize: function() {
             this.render();
         },
         render: function() {
             console.log('ask question view running');
             this.$el.html(this.template())
+        },
+        onSubmit: function(e) {
+            e.preventDefault();
+            this.model.set({
+                title: $('#title').val(),
+                body: $('#body').val()
+            });
+
+            console.log(this.model.toJSON());
+
+            this.model.save(
+                {},
+                {
+                    url: 'http://localhost/techQuiz/questions/create',
+                    headers: {
+                        'x-auth': localStorage.getItem('token')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        //TODO clear the question form
+                        window.location.href='http://localhost/techQuiz/questions';
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                }
+            )
         }
-    })
+    });
 
     const askQuestion = new AskQuestion();
 

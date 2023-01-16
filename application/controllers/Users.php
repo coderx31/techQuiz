@@ -1,6 +1,7 @@
 <?php
     use chriskacerguis\RestServer\RestController;
     use Ramsey\Uuid\Uuid;
+    use Firebase\JWT\JWT;
 
     class Users extends RestController {
         function __construct(){
@@ -103,6 +104,15 @@
                         'result' => $result
                     ],400);
                 } else {
+                    // generate jwt token
+                    $key = 'example_key';
+                    $payload = [
+                        'user_id' => $result['user_id'],
+                        'username' => $result['username']
+                    ];
+
+                    $jwtToken = JWT::encode($payload, $key, 'HS256');
+
                     // create the session
                     $user_data = array(
                         'user_id' => $result['user_id'],
@@ -114,7 +124,7 @@
                     $this-> response([
                         'code' => 0,
                         'error' => null,
-                        'result' => true
+                        'token' => $jwtToken
                     ],200);
                 }
             } catch(Exception $e) {

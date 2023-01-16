@@ -55,6 +55,10 @@ section .title {
     padding: 10px 20px;
 }
 
+section .content {
+   width: 100%; 
+}
+
 section .content .description {
     position: relative;
     text-align: justify;
