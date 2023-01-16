@@ -40,6 +40,22 @@ CREATE TABLE answers (
 );
 
 
+# for authentication
+
+CREATE TABLE keys (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id varchar(50) NOT NULL,
+    key VARCHAR(40) NOT NULL,
+    level INT(2) NOT NULL,
+    ignore_limits TINYINT(1) NOT NULL DEFAULT '0',
+    is_private_key TINYINT(1)  NOT NULL DEFAULT '0',
+    ip_addresses TEXT NULL DEFAULT NULL,
+    date_created INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+
 # insert test data into db
 INSERT INTO `users`(`user_id`, `firstname`, `lastname`, `username`, `email`, `password`) VALUES ('25614802-8592-11ed-a1eb-0242ac120002','Shenal','Fernando','coderx','shenal.fernando10@gmail.com','test-password')
 INSERT INTO `questions`(`question_id`, `user_id`, `title`, `body`) VALUES ('d5359d7e-8591-11ed-a1eb-0242ac120002','25614802-8592-11ed-a1eb-0242ac120002','Test-Question 1','Test Body')

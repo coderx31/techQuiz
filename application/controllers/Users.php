@@ -7,6 +7,12 @@
             parent::__construct();
         }
 
+        public function register_get() {
+            $this->load->view('templates/header');
+            $this->load->view('register');
+            $this->load->view('templates/footer');
+        }
+
         // user registration
         public function register_post() {
             try{
@@ -65,6 +71,12 @@
                     'result' => null
                 ], 500);
             }
+        }
+
+        public function login_get() {
+            $this->load->view('templates/header');
+            $this->load->view('login');
+            $this->load->view('templates/footer');
         }
 
         // user login

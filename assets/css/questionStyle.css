@@ -1,0 +1,114 @@
+/* .content .question {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f6f6;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.content .question .vote {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+.content .question .vote a {
+    font-size: 50px;
+    text-decoration: none;
+}
+
+.content .question .vote p {
+    font-size: 14pxpx;
+}
+
+.content .question .title {
+    font-size: 12px;
+} */
+
+.content .question {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #f4f4f4;
+    border-radius: 5px 0 5px 0;
+    padding: 10px;
+    width: 600px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.content .question .vote {
+   position: relative;
+   display: inline-block;
+   /* width: 100px;
+   height: 100px;
+   top: 50%;
+   left: 50%; */
+   /* justify-content: center;
+   align-items: center; */
+}
+
+.content .question .vote p {
+    font-size: 20px;
+}
+
+.content .question .vote a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+}
+
+.content .question .vote .a {
+    position: relative;
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content .question .description {
+   position: relative;
+   display: flex;
+}
+
+.content .question .description a {
+    display: inline-block;
+    color: #333;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+
+/* for question */
+
+.content .questionBox {
+    position: relative;
+    width: 800px;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+.content .questionBox .titleBox {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content .questionBox .titleBox .title {
+    position: relative;
+}
+
+.content .questionBox .titleBox .title h2 {
+    font-size: 30px;
+    font-weight: 200;
+}
+.content .questionBox .titleBox .title small {
+    font-size: 10px;
+}

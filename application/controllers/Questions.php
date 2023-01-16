@@ -42,6 +42,12 @@
             } 
         }
 
+        public function index_get() {
+            $this->load->view('templates/header');
+            $this->load->view('questions');
+            $this->load->view('templates/footer');
+        }
+
         // get questions (all or with id)
         public function get_get() {
             try {
@@ -54,7 +60,7 @@
                 if ($question_id){
                     // fetch the related question with all the details
                     $questions = $this->question_model->get_questions($question_id);
-                    $answers   =  $this->answer_model->gwt_answers($question_id);
+                    $answers   =  $this->answer_model->get_answers($question_id);
 
                     if ($questions) {
                         $this->response([

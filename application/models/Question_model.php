@@ -10,7 +10,7 @@
                 // if fetching all questions, no need all details with agination support
                 $limit = 5; // TODO -> need to migrate this value to config
                 $offset = ($page - 1) * $limit;
-                $this->db->select('title, votes');
+                $this->db->select('question_id, title, votes');
                 $this->db->order_by('createdAt', 'DESC');
                 $query = $this->db->get('questions', $limit, $offset);
                 return $query->result_array();

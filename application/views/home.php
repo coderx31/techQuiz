@@ -1,4 +1,4 @@
-<section>
+
 	<div class="title">
 		<h1>Home</h1>
 	</div>
@@ -15,8 +15,8 @@
 		</div>
 
 		<div class="questions">
-			<a href="#">Questions</a>
+			<a href="<?php echo base_url(); ?>questions">Questions</a>
 			<i class="fa-solid fa-right-long"></i>
 		</div>
 	</div>
-</section>
+
