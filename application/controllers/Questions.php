@@ -134,7 +134,8 @@
                 $token = $this->input->request_headers()['x-auth'];
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
-                $user_id = $this->question_model->get_user($question_id);
+                $user_id = $this->question_model->get_user($question_id)['user_id'];
+                //print_r($user_id);
                 // only created user can edit the question
                 if ($isValid && $this->session->userdata('logged_in') && $user_id === $decodedToken['user_id']) {
                     // $user_id = '25614802-8592-11ed-a1eb-0242ac120002';
@@ -188,7 +189,7 @@
                 $token = $this->input->request_headers()['x-auth'];
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
-                $user_id = $this->question_model->get_user($question_id);
+                $user_id = $this->question_model->get_user($question_id)['user_id'];
                 // only created user can delete the question
                 if ($isValid && $this->session->userdata('logged_in') && $user_id === $decodedToken['user_id']) {
                     if ($question_id === null || $question_id === "" ) {

@@ -90,7 +90,7 @@
 .content .questionBox {
     position: relative;
     width: 800px;
-    background: #f4f4f4;
+    /* background: #f4f4f4; */
     padding: 20px;
 }
 
@@ -98,17 +98,148 @@
     position: relative;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .content .questionBox .titleBox .title {
     position: relative;
+    min-width: 100%;
 }
 
 .content .questionBox .titleBox .title h2 {
     font-size: 30px;
-    font-weight: 200;
+    font-weight: 400;
 }
 .content .questionBox .titleBox .title small {
     font-size: 10px;
+    font-style: italic;
+}
+
+.content .questionBox .titleBox .vote {
+    position: relative;
+}
+
+.content .questionBox .titleBox .vote p {
+    font-size: 30px;
+}
+
+.content .questionBox .questionBody {
+    width: 100;
+    margin-top: 30px;
+
+}
+
+.content .questionBox .questionBody p {
+    font-size: 30px;
+}
+
+.content .answerBox {
+    width: 100%;
+}
+
+.content .answerBox h3 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 10px 20px;
+}
+
+.content .answerBox .answers {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.content .answerBox .answers .description{
+    position: relative;
+    width: 100%;
+}
+
+.content .answerBox .answers .description p {
+    font-size: 25px;
+}
+
+.content .answerBox .answers .description small {
+    font-size: 10px;
+    font-style: italic;
+}
+
+.content .answerBox .answers .description .actionBtns button {
+    width: 80px;
+    height: 20px;
+    outline: none;
+    border: 1px #333;
+    background: #555;
+    color: #fff;
+    margin: 20px 30px;
+}
+
+.content .answerBox .addAnswer {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.content .answerBox .addAnswer .formBx {
+    width: 50%;
+}
+
+.content .answerBox .addAnswer .formBx h2 {
+    color: #607d8b;
+	font-weight: 600;
+	font-size: 1.5em;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	border-bottom: 4px solid #ff4584;
+	display: inline-block;
+	letter-spacing: 1px;
+}
+
+.content .answerBox .addAnswer .formBx .inputBx {
+    width: 100%;
+	margin-bottom: 20px;
+}
+
+.content .answerBox .addAnswer .formBx .inputBx input {
+    width: 100%;
+	padding: 10px 20px;
+	outline: none;
+	font-weight: 400;
+	border: 1px solid #607d8b;
+	font-size: 16px;
+	letter-spacing: 1px;
+	color: #607d8b;
+	background: transparent;
+	border-radius: 30px;
+}
+
+.content .answerBox .addAnswer .formBx .inputBx input[type="submit"] {
+    background: #ff4584;
+	color: #fff;
+	outline: none;
+	border: none;
+	font-weight: 500;
+	cursor: pointer;
+	width: 50%;
+}
+
+.content .answerBox .addAnswer .formBx .inputBx input[type="submit"]:hover {
+    background: #f53677;
+}
+
+.content .answerBox .addAnswer .formBx .inputBx textarea {
+    width: 100%;
+	padding: 10px 20px;
+	outline: none;
+	font-weight: 400;
+	border: 1px solid #607d8b;
+	font-size: 16px;
+	letter-spacing: 1px;
+	color: #607d8b;
+	background: transparent;
+	border-radius: 10px;
+	min-height: 200px;
+	resize: none;
 }

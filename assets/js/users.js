@@ -45,10 +45,11 @@ function loginView() {
                 success: function(userdata) {
                     console.log('loggin success');
                     console.log(userdata);
-                    $('#login-template').trigger('reset');
+                    // $('#login-template').trigger('reset');
                     localStorage.setItem('token', userdata.attributes.token);
                     localStorage.setItem('username', userdata.attributes.username);
                     localStorage.setItem('logged_in', true);
+                    localStorage.setItem('user_id', userdata.attributes.user_id);
                     window.location.href='http://localhost/techQuiz/questions';
                 },
             }

@@ -124,6 +124,7 @@
                     $this-> response([
                         'code' => 0,
                         'error' => null,
+                        'user_id' => $result['user_id'],
                         'token' => $jwtToken
                     ],200);
                 }
