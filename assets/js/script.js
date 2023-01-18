@@ -25,23 +25,11 @@ if (localStorage.getItem('token')) {
 
 */
 
+
+
 // logout functionality
 
 const logout = document.getElementById('logoutTab');
-// logout.onclick(e => {
-//     localStorage.clear();
-//     $.post({
-//         url: 'http://localhost/techQuiz/users/logout',
-//         success: function(response) {
-//             alert(response)
-//         },
-//         error: function(response) {
-//             alert(response);
-//         }
-//     });
-
-//     window.location.href = 'http://localhost/techQuiz/users/login';
-// })
 
 logout.addEventListener('click', (e) => {
     localStorage.clear();

@@ -19,39 +19,45 @@ function loginView() {
         template: _.template($('#login-template').html()),
         model: user,
         events: {
-            "submit": "onSubmit"
+            "submit": "userLogin"
         },
         initialize: function() {
             this.render();
         },
         render: function() {
-            console.log('loggin view running');
             this.$el.html(this.template())
         },
-        onSubmit: function(e) {
+        userLogin: function(e) {
             e.preventDefault();
             this.model.set({
                 username: $('#username').val(),
                 password: $('#password').val()
             });
 
-           // alert(this.model.toJSON());
-           console.log(this.model.toJSON());
-
            this.model.save(
             {},
             {
                 url: 'http://localhost/techQuiz/users/login',
                 success: function(userdata) {
-                    console.log('loggin success');
-                    console.log(userdata);
-                    // $('#login-template').trigger('reset');
+                    flashy('login success', {
+                        type: 'flashy__success',
+                        timeout: 1000
+                    });
                     localStorage.setItem('token', userdata.attributes.token);
                     localStorage.setItem('username', userdata.attributes.username);
                     localStorage.setItem('logged_in', true);
                     localStorage.setItem('user_id', userdata.attributes.user_id);
-                    window.location.href='http://localhost/techQuiz/questions';
+
+                    setTimeout(() => {
+                        window.location.href='http://localhost/techQuiz/questions';
+                    }, 2000);
                 },
+                error: function(model, response, option) {
+                    flashy(`${response.responseJSON.error}`, {
+                        type: 'flashy__danger',
+                        timeout: 2000
+                    })
+                }
             }
             )
 
@@ -72,16 +78,15 @@ function registerView() {
         template: _.template($('#register-template').html()),
         model: user,
         events: {
-            "submit": 'onSubmit'
+            "submit": 'userRegister'
         },
         initialize: function() {
             this.render();
         },
         render: function() {
-            console.log('register view running');
             this.$el.html(this.template())
         },
-        onSubmit: function(e) {
+        userRegister: function(e) {
             e.preventDefault();
             this.model.set({
                 firstname: $('#firstname').val(),
@@ -92,19 +97,24 @@ function registerView() {
                 password2: $('#password2').val()
             });
 
-            console.log(this.model.toJSON());
-
             this.model.save(
                 {},
                 {
                     url: 'http://localhost/techQuiz/users/register',
-                    success: function(response) {
-                        console.log(response);
-                        //TODO clear the register form
-                        window.location.href='http://localhost/techQuiz/users/login'
+                    success: function(model, response, option) {
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__success',
+                            timeout: 2000
+                        })
+                        setTimeout(() => {
+                            window.location.href='http://localhost/techQuiz/users/login';
+                        }, 2000);
                     },
-                    error: function(response) {
-                        console.log(response);
+                    error: function(model, response, option) {
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
                     }
                 }
             )

@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/questionStyle.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/login.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/register.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/flashy.min.css">
     <title>Tech Quiz</title>
 </head>
 <body>

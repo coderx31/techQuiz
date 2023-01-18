@@ -1,32 +1,3 @@
-/* .content .question {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f6f6;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-.content .question .vote {
-    position: relative;
-    display: inline-block;
-    padding: 10px;
-}
-
-.content .question .vote a {
-    font-size: 50px;
-    text-decoration: none;
-}
-
-.content .question .vote p {
-    font-size: 14pxpx;
-}
-
-.content .question .title {
-    font-size: 12px;
-} */
-
 .content .question {
     position: relative;
     display: flex;

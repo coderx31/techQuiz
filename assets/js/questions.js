@@ -31,47 +31,29 @@ function allQuestionsView() {
     allQuestions.fetch({
         async: false,
         success: function(collection,response, options) {
-            // TODO need to refactor this code snipet
-            console.log('success');
-            console.log(`collection - ${JSON.stringify(collection)}`);
-            console.log(`response - ${JSON.stringify(response)}`); // this is the http response
-            console.log(`options - ${JSON.stringify(options)}`);
+            
         },
         error: function(colection, response, options) {
-            console.log('error');
+            flashy(`${response.responseJSON.error}`, {
+                type: 'flashy__danger',
+                timeout: 2000
+            })
             
         }
     });
 
-    // print for loggin purposes
-    console.log(allQuestions.toJSON());
 
     const QuestionsView = Backbone.View.extend({
         el: '#content',
         template: _.template($('#questions-template').html()),
-        events: {
-            "click #upvote": "upVote",
-            "click #downvote": "downVote"
-        },
         collection: allQuestions,
         initialize: function() {
             this.render();
         },
         render: function() {
-            console.log('questions running');
-            console.log(this.collection.toJSON());
-
-            console.log(localStorage.getItem('token'));
-    
             this.$el.html(this.template({
                 questions: this.collection.toJSON()
             }));
-        },
-        upVote: function() {
-            console.log('upvote icon pressed');
-        },
-        downVote: function() {
-            console.log('downvote icon pressed');
         }
     });
 
@@ -95,14 +77,14 @@ function questionView(question_id) {
     question.fetch({
         async: false,
         success: function(model, response, options) {
-            console.log(response);
         },
         error: function(model, reponse, options) {
-            console.log('error');
+            flashy(`${response.responseJSON.error}`, {
+                type: 'flashy__danger',
+                timeout: 2000
+            })
         }
     })
-
-    console.log(question.toJSON());
 
     const QuestionView = Backbone.View.extend({
         el: '#content',
@@ -112,14 +94,13 @@ function questionView(question_id) {
             'submit': 'addAnswer',
             'click #upvote': 'upVote',
             'click #downvote': 'downVote',
-            'click #deleteQuestion': 'deleteQuestion'
+            'click #deleteQuestion': 'deleteQuestion',
+            'click #deleteAnswer': 'deleteAnswer'
         },
         initialize: function() {
             this.render();
         },
         render: function() {
-            console.log(this.model.toJSON());
-            console.log('question view running');
             this.$el.html(this.template({
                 question: this.model.toJSON()
             }))
@@ -130,15 +111,11 @@ function questionView(question_id) {
             const Answer = Backbone.Model.extend();
 
             const answer = new Answer();
-            console.log('print the question model');
-            console.log(question.toJSON());
 
             answer.set({
                 question_id: $('#question_id').val(),
                 body: $('#answer_body').val()
             });
-
-            console.log(answer.toJSON());
 
             answer.save(
                 {},
@@ -148,18 +125,19 @@ function questionView(question_id) {
                         'x-auth': localStorage.getItem('token')
                     },
                     success: function(response) {
-                        console.log(response);
                         window.location.reload(true);
                     },
                     error: function(response) {
-                        console.log(response);
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
                     }
                 }
             )
 
         },
         upVote: _.once(function() {
-            console.log('upvote clicked');
             if(localStorage.getItem('token')) {
                 $.ajax({
                     url: `http://localhost/techQuiz/questions/upvote/${question_id}`,
@@ -169,11 +147,13 @@ function questionView(question_id) {
                     },
                     type: 'PUT',
                     success: function(response) {
-                        console.log(response);
                         window.location.reload(true);
                     },
                     error: function(response) {
-                        console.log(response);
+                        flashy(`${response.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
                     }
                 });
             } else {
@@ -181,7 +161,6 @@ function questionView(question_id) {
             }
         }),
         downVote: _.once(function() {
-            console.log('downvote clicked');
             if (localStorage.getItem('token')) {
                 $.ajax({
                     url: `http://localhost/techQuiz/questions/downvote/${question_id}`,
@@ -191,11 +170,13 @@ function questionView(question_id) {
                     },
                     type: 'PUT',
                     success: function(response) {
-                        console.log(response);
                         window.location.reload(true);
                     },
                     error: function(response) {
-                        console.log(response);
+                        flashy(`${response.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
                     }
                 });
             } else {
@@ -212,16 +193,24 @@ function questionView(question_id) {
                 },
                 type: 'DELETE',
                 success: function(response) {
-                    console.log(response);
                     window.location.href = 'http://localhost/techQuiz/questions/';
                 },
                 error: function(response) {
-                    console.log(response);
+                    flashy(`${response.error}`, {
+                        type: 'flashy__danger',
+                        timeout: 2000
+                    })
                 }
                })
             } else {
                 window.location.href = 'http://localhost/techQuiz/users/login';
             }
+        },
+        deleteAnswer: function() {
+            // TODO need to implement this feature
+            flashy('messages', {
+                type: 'flashy__success'
+            })
         }
     });
 
@@ -246,7 +235,6 @@ function askQuestionView() {
             this.render();
         },
         render: function() {
-            console.log('ask question view running');
             this.$el.html(this.template())
         },
         askQuestion: function(e) {
@@ -256,8 +244,6 @@ function askQuestionView() {
                 body: $('#body').val()
             });
 
-            console.log(this.model.toJSON());
-
             this.model.save(
                 {},
                 {
@@ -265,13 +251,14 @@ function askQuestionView() {
                     headers: {
                         'x-auth': localStorage.getItem('token')
                     },
-                    success: function(response) {
-                        console.log(response);
-                        //TODO clear the question form
+                    success: function(model, response, option) {
                         window.location.href='http://localhost/techQuiz/questions';
                     },
-                    error: function(response) {
-                        console.log(response);
+                    error: function(model, response, error) {
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
                     }
                 }
             )
@@ -284,7 +271,6 @@ function askQuestionView() {
 
 // edit question view
 function editQuestionView(question_id) {
-    // const Question = Backbone.Model.extend();
 
     const Question = Backbone.Model.extend({
         url: `http://localhost/techQuiz/questions/get?question_id=${question_id}`,
@@ -301,13 +287,13 @@ function editQuestionView(question_id) {
     question.fetch({
         async: false,
         success: function(model, response, options) {
-            console.log('success');
-            console.log(`model - ${JSON.stringify(model)}`);
-            console.log(`response - ${JSON.stringify(response)}`);
-            console.log(`options - ${JSON.stringify(options)}`);
+            
         },
         error: function(model, reponse, options) {
-            console.log(response);
+            flashy(`${response.responseJSON.error}`, {
+                type: 'flashy__danger',
+                timeout: 2000
+            })
         }
     })
 
@@ -322,7 +308,6 @@ function editQuestionView(question_id) {
             this.render();
         },
         render: function() {
-            console.log('edit question view running');
             this.$el.html(this.template({
                 question: this.model.toJSON()
             }))
@@ -337,8 +322,6 @@ function editQuestionView(question_id) {
                 body: $('#body').val()
             });
 
-            console.log(this.model.toJSON());
-
             this.model.save(
                 {},
                 {
@@ -347,10 +330,16 @@ function editQuestionView(question_id) {
                         'x-auth': localStorage.getItem('token')
                     },
                     success: function(response) {
-                        console.log(response);
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__success',
+                            timeout: 2000
+                        })
                     },
                     error: function(response) {
-                        console.log(response);
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
                     }
                 }
             )
