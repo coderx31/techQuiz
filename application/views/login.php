@@ -72,28 +72,3 @@
 </script>
 
 <script src="<?php echo base_url(); ?>assets/js/users.js"></script>
-
-<!-- <div class="contentBx">
-    <div class="formBx">
-        <h2>Login</h2>
-        <form>
-            <div class="inputBx">
-                <span>Username:</span>
-                <input type="text" name="username">
-            </div>
-            <div class="inputBx">
-                <span>Password:</span>
-                <input type="password" name="password">
-            </div>
-            <div class="remember">
-                <label><input type="checkbox" name="remember">Remember me</label>
-            </div>
-            <div class="inputBx">
-                <input type="submit" value="Sign In">
-            </div>
-            <div class="inputBx">
-                <p>Don't have an account? <a href="<?php echo base_url(); ?>users/register"">Sign Up</a></p>
-            </div>
-        </form>
-    </div>
-</div> -->

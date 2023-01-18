@@ -7,11 +7,6 @@
 
         // get answers with or without id
         public function get_answers($question_id = null) {
-            // if($answer_id === null) {
-            //     $this->db->order_by('createdAt', 'DESC');
-            //     $query = $this->db->get('answers');
-            //     return $query->result_array();
-            // } 
 
             $query = $this->db->get_where('answers', array('question_id' => $question_id));
             return $query->result_array();

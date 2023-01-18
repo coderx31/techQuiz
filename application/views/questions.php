@@ -6,15 +6,14 @@
     <script type="text/template" id="questions-template">
         <div class="questionHeader">
             <div class="title"><h2>All Questions</h2></div>
-            <div class="askQuestion" id="askQuestion"><a href="#/askquestion">Ask Questions</a></div>
+            <% if (localStorage.getItem('token')) { %>
+                <div class="askQuestion" id="askQuestion"><a href="#/askquestion">Ask Questions</a></div>
+            <% } %>
         </div>
         <% _.each(questions, function(question) { %>
             <div class="question">
                 <div class="vote">
-                    <!-- to be removed -->
-                    <!-- <a href="#"><i class="fa-solid fa-caret-up" class="upvote" id="upvote"></i></a> -->
                     <p> <%= question.votes %></p>
-                    <!-- <a href="#"><i class="fa-solid fa-caret-down" class="downvote" id="downvote"></i></a> -->
                 </div>
                 <div class="description">
                     <a href = #/question/<%= question.question_id %> > <%= question.title %></a>
@@ -70,12 +69,6 @@
                     </div>
                 <% }) %>
                 <div class="addAnswer">
-                    <!-- <form>
-                        <input type="hidden" name="question_id" id="question_id" value="<%= question.questions.question_id %>">
-                        <span>Body:</span>
-                        <textarea name="answer_body" id="answer_body"></textarea>
-                        <input type="submit" value="Submit">
-                    </form> -->
                     <div class="formBx">
                         <h2>Add Answer</h2>
                         <form>

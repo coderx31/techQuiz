@@ -12,16 +12,14 @@
 
         // user login
         public function login($data) {
-            // to be implemented
             $this->db->where('username',$data['username']);
-           // $this->db->where('password', $data['password']);
 
             $result = $this->db->get('users');
             if($result->num_rows() == 1) {
                 // verify the password
                 $isSuccess = password_verify($data['password'], $result->row(0)->password);
                 if ($isSuccess) {
-                    // return username and password
+                    // return user_id and username
                     return array('user_id' => $result->row(0)->user_id, 'username' => $result->row(0)->username);
                 } else {
                     return false;
@@ -43,7 +41,6 @@
 
         // check username availability
         public function check_username_exists($username) {
-            // to be implemented
             $query = $this->db->get_where('users', array( 'username' => $username ));
             if(empty($query->row_array())) {
                 return false;

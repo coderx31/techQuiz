@@ -82,7 +82,16 @@
             try {
                 // user authentication 
                 // validate the user
-                $token = $this->input->request_headers()['x-auth'];
+                $token = null;
+                if (array_key_exists('x-auth', $this->input->request_headers())) {
+                    $token = $this->input->request_headers()['x-auth'];
+                } else {
+                    $this->response([
+                        'code' => -1,
+                        'error' => 'unauthorized',
+                        'result' => null
+                    ], 401);
+                }
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
                 if ($isValid && $this->session->userdata('logged_in')) {
@@ -131,11 +140,19 @@
         // update question
         public function update_put($question_id) {
             try {
-                $token = $this->input->request_headers()['x-auth'];
+                $token = null;
+                if (array_key_exists('x-auth', $this->input->request_headers())) {
+                    $token = $this->input->request_headers()['x-auth'];
+                } else {
+                    $this->response([
+                        'code' => -1,
+                        'error' => 'unauthorized',
+                        'result' => null
+                    ], 401);
+                }
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
                 $user_id = $this->question_model->get_user($question_id)['user_id'];
-                //print_r($user_id);
                 // only created user can edit the question
                 if ($isValid && $this->session->userdata('logged_in') && $user_id === $decodedToken['user_id']) {
                     // $user_id = '25614802-8592-11ed-a1eb-0242ac120002';
@@ -186,7 +203,16 @@
         // delete question
         public function delete_delete($question_id) {
            try {
+            $token = null;
+            if (array_key_exists('x-auth', $this->input->request_headers())) {
                 $token = $this->input->request_headers()['x-auth'];
+            } else {
+                $this->response([
+                    'code' => -1,
+                    'error' => 'unauthorized',
+                    'result' => null
+                ], 401);
+            }
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
                 $user_id = $this->question_model->get_user($question_id)['user_id'];
@@ -221,7 +247,16 @@
         // increase votes
         public function upvote_put($question_id) {
             try {
-                $token = $this->input->request_headers()['x-auth'];
+                $token = null;
+                if (array_key_exists('x-auth', $this->input->request_headers())) {
+                    $token = $this->input->request_headers()['x-auth'];
+                } else {
+                    $this->response([
+                        'code' => -1,
+                        'error' => 'unauthorized',
+                        'result' => null
+                    ], 401);
+                }
                 $isValid = validateJWTToken($token);
                 // $decodedToken = (array)decodeJWTToken($token);
                 if ($isValid && $this->session->userdata('logged_in')) {
@@ -259,7 +294,16 @@
         // decrease votes
         public function downvote_put($question_id) {
             try {
-                $token = $this->input->request_headers()['x-auth'];
+                $token = null;
+                if (array_key_exists('x-auth', $this->input->request_headers())) {
+                    $token = $this->input->request_headers()['x-auth'];
+                } else {
+                    $this->response([
+                        'code' => -1,
+                        'error' => 'unauthorized',
+                        'result' => null
+                    ], 401);
+                }
                 $isValid = validateJWTToken($token);
                 if ($isValid && $this->session->userdata('logged_in')) {
                     if($question_id === null || $question_id === "" ) {
