@@ -10,16 +10,18 @@
                 <div class="askQuestion" id="askQuestion"><a href="#/askquestion">Ask Questions</a></div>
             <% } %>
         </div>
-        <% _.each(questions, function(question) { %>
-            <div class="question">
-                <div class="vote">
-                    <p> <%= question.votes %></p>
+       <div class="box">
+            <% _.each(questions, function(question) { %>
+                <div class="question">
+                    <div class="vote">
+                        <p> <%= question.votes %></p>
+                    </div>
+                    <div class="description">
+                        <a href = #/question/<%= question.question_id %> > <%= question.title %></a>
+                    </div>
                 </div>
-                <div class="description">
-                    <a href = #/question/<%= question.question_id %> > <%= question.title %></a>
-                </div>
-            </div>
-        <% }) %>
+            <% }) %>
+       </div>
     </script>
 
 
@@ -27,9 +29,13 @@
         <div class="questionBox">
             <div class="titleBox">
                 <div class="vote">
+                <% if (localStorage.getItem('user_id') !== question.questions.user_id) { %>
                     <p href=""><i class="fa-solid fa-caret-up" class="upvote" id="upvote"></i></p>
+                <% } %>
                     <p><%= question.questions.votes %></p>
+                <% if (localStorage.getItem('user_id') !== question.questions.user_id) { %>
                     <p href=""><i class="fa-solid fa-caret-down" class="downvote" id="downvote"></i></p>
+                <% } %>
                 </div>
                 <div class="title">
                     <h2><%= question.questions.title %></p>
@@ -52,16 +58,24 @@
                 <% _.each(question.answers, function(answer) { %>
                     <div class="answers">
                         <div class="votes">
-                            <p href=""><i class="fa-solid fa-caret-up" class="answerupvote" id="answerUpvote"></i></p>
+                        <!-- user cannot vote for their answer -->
+                        <% if (localStorage.getItem('user_id') !== answer.user_id) { %>
+                            <a><i class="fa-solid fa-caret-up" class="answerupvote" id="answerUpvote"></i></a>
+                        <% } %>
                             <p><%= answer.votes %></p>
-                            <p href=""><i class="fa-solid fa-caret-down" class="answerdownvote" id="answerDownvote"></i></p>
+                        <% if (localStorage.getItem('user_id') !== answer.user_id) { %>
+                            <a><i class="fa-solid fa-caret-down" class="answerdownvote" id="answerDownvote"></i></a>
+                        <% } %>
                         </div>
                         <div class="description">
                             <p><%= answer.body %></p>
                             <small>Updated : <%= answer.updated == 0 ? false : true %></small>
                             <% if (localStorage.getItem('user_id') === answer.user_id) { %>
                             <div class="actionBtns">
-                                <!-- <a href=#/editquestion/<%= question.questions.question_id %> class="edit">Edit</button> -->
+                                <form>
+                                    <input type="hidden" name="answer_id" id="answer_id" value="<%= answer.answer_id %>">
+                                </form>
+                                <a id="editAnswer">Edit</a>
                                 <button class="delete" id="deleteAnswer">Delete</button>
                             </div>
                             <% } %>

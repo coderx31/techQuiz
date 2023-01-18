@@ -56,7 +56,7 @@ section .title {
 }
 
 section .content {
-   width: 100%; 
+   width: 50%; 
 }
 
 section .content .description {

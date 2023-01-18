@@ -12,8 +12,13 @@
             return $query->result_array();
         }
 
+        public function get_answer($answer_id) {
+            $query = $this->db->get_where('answers', array('answer_id' => $answer_id));
+            return $query->row_array();
+        }
+
         public function get_user($answer_id) {
-            $this->db->seelct('user_id');
+            $this->db->select('user_id');
             $query = $this->db->get_where('answers', array('answer_id' => $answer_id));
             return $query->row_array();
         }
@@ -45,7 +50,7 @@
         }
 
         // downvote for an answer
-        public function decrease_votes($answer_id) {
+        public function decrease_vote($answer_id) {
             $this->db->where('answer_id', $answer_id);
             $this->db->set('votes', 'votes-1', FALSE);
             $this->db->update('answers');

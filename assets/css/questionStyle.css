@@ -1,3 +1,33 @@
+.content .questionHeader {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content .questionHeader .title {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.content .questionHeader h2 {
+    font-size: 40px;
+}
+
+.content .questionHeader .askQuestion {
+    position: relative;
+    padding: 20px;
+    background: #333;
+    border-radius: 5px;
+}
+
+.content .questionHeader .askQuestion a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 200;
+    color: #fff;
+}
+
 .content .question {
     position: relative;
     display: flex;
@@ -14,32 +44,10 @@
 .content .question .vote {
    position: relative;
    display: inline-block;
-   /* width: 100px;
-   height: 100px;
-   top: 50%;
-   left: 50%; */
-   /* justify-content: center;
-   align-items: center; */
 }
 
 .content .question .vote p {
     font-size: 20px;
-}
-
-.content .question .vote a {
-    text-decoration: none;
-    color: #333;
-    font-size: 20px;
-}
-
-.content .question .vote .a {
-    position: relative;
-    font-size: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .content .question .description {
@@ -69,7 +77,7 @@
     position: relative;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .content .questionBox .titleBox .title {
@@ -78,8 +86,11 @@
 }
 
 .content .questionBox .titleBox .title h2 {
-    font-size: 30px;
-    font-weight: 400;
+    color: #607d8b;
+    font-weight: 600;
+	font-size: 40px;
+    border-bottom: 4px solid #ff4584;
+    display: inline-block;
 }
 .content .questionBox .titleBox .title small {
     font-size: 10px;
@@ -100,8 +111,37 @@
 
 }
 
+.content .questionBox .actionBtns {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.content .questionBox .actionBtns button {
+    width: 80px;
+    height: 20px;
+    outline: none;
+    border: 1px #333;
+    background: #555;
+    color: #fff;
+    margin: 20px 30px;
+}
+
+.content .questionBox .actionBtns a {
+    text-decoration: none;
+    text-align: center;
+    width: 80px;
+    height: 20px;
+    outline: none;
+    border: 1px #333;
+    background: #555;
+    color: #fff;
+    margin: 20px 30px;
+}
+
 .content .questionBox .questionBody p {
     font-size: 30px;
+    text-align: justify;
 }
 
 .content .answerBox {
@@ -111,7 +151,10 @@
 .content .answerBox h3 {
     font-size: 20px;
     font-weight: 400;
-    margin: 10px 20px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-bottom: 3px #607d8b;
 }
 
 .content .answerBox .answers {
@@ -134,6 +177,11 @@
     font-size: 10px;
     font-style: italic;
 }
+.content .answerBox .answers .description .actionBtns {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 
 .content .answerBox .answers .description .actionBtns button {
     width: 80px;
@@ -145,9 +193,21 @@
     margin: 20px 30px;
 }
 
+.content .answerBox .answers .description .actionBtns a {
+    text-decoration: none;
+    text-align: center;
+    width: 80px;
+    height: 20px;
+    outline: none;
+    border: 1px #333;
+    background: #555;
+    color: #fff;
+    margin: 20px 30px;
+}
+
 .content .answerBox .addAnswer {
     display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	width: 100%;
 	height: 100%;

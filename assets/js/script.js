@@ -1,13 +1,11 @@
-/*
-// accessing localStorage
-
-console.log(`from script - ${localStorage.getItem('token')}`);
 
 // access askQuestion div
 // if token missing, or user not logged in, hide the askQuestion tab
 if(!localStorage.getItem('token')) {
     const askQuestion = document.getElementById('askQuestion');
-    askQuestion.hidden = true;
+    if(askQuestion) {
+        askQuestion.hidden = true;
+    }
 }
 
 // header customization
@@ -23,8 +21,6 @@ if (localStorage.getItem('token')) {
     logouttab.hidden = true;
 }
 
-*/
-
 
 
 // logout functionality
@@ -37,13 +33,10 @@ logout.addEventListener('click', (e) => {
         url: 'http://localhost/techQuiz/users/logout',
         type: 'POST',
         success: function(response) {
-            //alert(JSON.stringify(response))
-            console.log(JSON.stringify(response));
             window.location.href = 'http://localhost/techQuiz/users/login';
         },
         error: function(response) {
-            //alert(JSON.stringify(response));
-            console.log(JSON.stringify(response));
+           flashy('failed to logout');
         }
     });
 })

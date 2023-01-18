@@ -12,7 +12,7 @@
         public function get_get() {
             try {
                 $answer_id = $this->get('answer_id');
-                $answers = $this->answer_model->get_answers($answer_id);
+                $answers = $this->answer_model->get_answer($answer_id);
                 if($answers) {
                     $this->response([
                         'code' => 0,
@@ -109,7 +109,7 @@
                 }
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
-                $user_id = $this->answer_model->get_user($answer_id);
+                $user_id = $this->answer_model->get_user($answer_id)['user_id'];
                 // only created user can edit the question
                 if ($isValid && $this->session->userdata('logged_in') && $user_id === $decodedToken['user_id']) {
                     $body = $this->put('body');
@@ -163,7 +163,7 @@
                 }
                 $isValid = validateJWTToken($token);
                 $decodedToken = (array)decodeJWTToken($token);
-                $user_id = $this->answer_model->get_user($answer_id);
+                $user_id = $this->answer_model->get_user($answer_id)['user_id'];;
                 if ($isValid && $this->session->userdata('logged_in') && $user_id === $decodedToken['user_id']) {
                     if($answer_id === "") {
                         $this->response([
@@ -201,12 +201,12 @@
                 } else {
                     $this->response([
                         'code' => -1,
-                        'error' => 'unauthorized',
+                        'error' => 'unauthorized - auth token',
                         'result' => null
                     ], 401);
                 }
                 $isValid = validateJWTToken($token);
-                if ($isValid && $this->session->userdata('logged_id')) {
+                if ($isValid && $this->session->userdata('logged_in')) {
                     if ($answer_id === "" ) {
                         $this->response([
                             'code' => -1,
@@ -261,7 +261,7 @@
                     ], 400);
                 }
     
-                $result = $this->answer_id->decrease_model($answer_id);
+                $result = $this->answer_model->decrease_vote($answer_id);
                 $this->response([
                     'code' => 0,
                     'error' => null,

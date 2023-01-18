@@ -19,7 +19,7 @@
         public function get_get() {
             try {
                 $question_id = $this->get('question_id');
-                $page = $this->get('page');
+                // $page = $this->get('page');
 
                 $questions = null;
                 $answers = null;
@@ -47,11 +47,7 @@
                     }
                     
                 } else {
-                    // need to get the all the questions with the help of pagination
-                    if (!$page) {
-                        $page = 1;
-                    }
-                    $questions = $this->question_model->get_questions(null, $page);
+                    $questions = $this->question_model->get_questions();
                     if ($questions) {
                         $this->response([
                             'code' => 0,

@@ -95,7 +95,10 @@ function questionView(question_id) {
             'click #upvote': 'upVote',
             'click #downvote': 'downVote',
             'click #deleteQuestion': 'deleteQuestion',
-            'click #deleteAnswer': 'deleteAnswer'
+            'click #deleteAnswer': 'deleteAnswer',
+            'click #answerUpvote': 'upVoteAnswer',
+            'click #answerDownvote': 'downVoteAnswer',
+            'click #editAnswer': 'editAnswer'
         },
         initialize: function() {
             this.render();
@@ -207,10 +210,108 @@ function questionView(question_id) {
             }
         },
         deleteAnswer: function() {
-            // TODO need to implement this feature
-            flashy('messages', {
-                type: 'flashy__success'
-            })
+            const answer_id = $('#answer_id').val();
+            $.ajax({
+                url: `http://localhost/techQuiz/answers/delete/${answer_id}`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth': localStorage.getItem('token')
+                },
+                type: 'DELETE',
+                success: function(response) {
+                    flashy('answer deleted', {
+                        type: 'flashy__success',
+                        timeout: 2000
+                    });
+                    window.location.reload(true);
+                },
+                error: function(response) {
+                    console.log(response);
+                    flashy(`${response.responseJSON.error}`, {
+                        type: 'flashy__danger',
+                        timeout: 2000
+                    });
+                }
+            });
+        },
+        editAnswer: function() {
+            const answer_id = $('#answer_id').val();
+            const Answer = Backbone.Model.extend({
+                url: `http://localhost/techQuiz/answers/get?answer_id=${answer_id}`,
+                parse: function(response, options) {
+                    return response.result;
+                }
+            });
+
+            const answer = new Answer();
+            
+            answer.fetch({
+                async: false,
+                success: function(model, response, options) {
+                },
+                error: function(model, reponse, options) {
+                    flashy(`${response.responseJSON.error}`, {
+                        type: 'flashy__danger',
+                        timeout: 2000
+                    })
+                }
+            });
+
+            console.log(answer)
+
+            const body = $('#answer_body').val(answer.attributes.body);
+
+        },
+        upVoteAnswer: function() {
+            if (localStorage.getItem('token')) {
+                const answer_id = $('#answer_id').val();
+                console.log(answer_id);
+                $.ajax({
+                    url: `http://localhost/techQuiz/answers/upvote/${answer_id}`,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth': localStorage.getItem('token')
+                    },
+                    type: 'PUT',
+                    success: function(response) {
+                        window.location.reload(true);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                        flashy(`${JSON.stringify(response.responseJSON.error)}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
+                    }
+                });
+            } else {
+                window.location.href = 'http://localhost/techQuiz/users/login';
+            }
+        },
+        downVoteAnswer: function() {
+            if (localStorage.getItem('token')) {
+                const answer_id = $('#answer_id').val();
+                console.log(answer_id);
+                $.ajax({
+                    url: `http://localhost/techQuiz/answers/downvote/${answer_id}`,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth': localStorage.getItem('token')
+                    },
+                    type: 'PUT',
+                    success: function(response) {
+                        window.location.reload(true);
+                    },
+                    error: function(response) {
+                        flashy(`${response.responseJSON.error}`, {
+                            type: 'flashy__danger',
+                            timeout: 2000
+                        })
+                    }
+                });
+            } else {
+                window.location.href = 'http://localhost/techQuiz/users/login';
+            }
         }
     });
 
@@ -220,52 +321,56 @@ function questionView(question_id) {
 // askQuestionView function
 
 function askQuestionView() {
-    const Question = Backbone.Model.extend();
+    if(localStorage.getItem('token')) {
+        const Question = Backbone.Model.extend();
 
-    const question = new Question();
+        const question = new Question();
 
-    const AskQuestion = Backbone.View.extend({
-        el: '#content',
-        template: _.template($('#ask-question').html()),
-        model: question,
-        events: {
-            "submit": 'askQuestion'
-        },
-        initialize: function() {
-            this.render();
-        },
-        render: function() {
-            this.$el.html(this.template())
-        },
-        askQuestion: function(e) {
-            e.preventDefault();
-            this.model.set({
-                title: $('#title').val(),
-                body: $('#body').val()
-            });
+        const AskQuestion = Backbone.View.extend({
+            el: '#content',
+            template: _.template($('#ask-question').html()),
+            model: question,
+            events: {
+                "submit": 'askQuestion'
+            },
+            initialize: function() {
+                this.render();
+            },
+            render: function() {
+                this.$el.html(this.template())
+            },
+            askQuestion: function(e) {
+                e.preventDefault();
+                this.model.set({
+                    title: $('#title').val(),
+                    body: $('#body').val()
+                });
 
-            this.model.save(
-                {},
-                {
-                    url: 'http://localhost/techQuiz/questions/create',
-                    headers: {
-                        'x-auth': localStorage.getItem('token')
-                    },
-                    success: function(model, response, option) {
-                        window.location.href='http://localhost/techQuiz/questions';
-                    },
-                    error: function(model, response, error) {
-                        flashy(`${response.responseJSON.error}`, {
-                            type: 'flashy__danger',
-                            timeout: 2000
-                        })
+                this.model.save(
+                    {},
+                    {
+                        url: 'http://localhost/techQuiz/questions/create',
+                        headers: {
+                            'x-auth': localStorage.getItem('token')
+                        },
+                        success: function(model, response, option) {
+                            window.location.href='http://localhost/techQuiz/questions';
+                        },
+                        error: function(model, response, error) {
+                            flashy(`${response.responseJSON.error}`, {
+                                type: 'flashy__danger',
+                                timeout: 2000
+                            })
+                        }
                     }
-                }
-            )
-        }
-    });
+                )
+            }
+        });
 
-    const askQuestion = new AskQuestion();
+        const askQuestion = new AskQuestion();
+    } else {
+        window.location.href = 'http://localhost/techQuiz/users/login';
+    }
 
 }
 
@@ -330,10 +435,11 @@ function editQuestionView(question_id) {
                         'x-auth': localStorage.getItem('token')
                     },
                     success: function(response) {
-                        flashy(`${response.responseJSON.error}`, {
+                        flashy(`${response}`, {
                             type: 'flashy__success',
                             timeout: 2000
                         })
+                        window.location.href='http://localhost/techQuiz/questions'
                     },
                     error: function(response) {
                         flashy(`${response.responseJSON.error}`, {
