@@ -1,3 +1,5 @@
+var hostUrl = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz';
+
 
 // access askQuestion div
 // if token missing, or user not logged in, hide the askQuestion tab
@@ -30,10 +32,10 @@ const logout = document.getElementById('logoutTab');
 logout.addEventListener('click', (e) => {
     localStorage.clear();
     $.ajax({
-        url: 'http://localhost/techQuiz/users/logout',
+        url: `${hostUrl}/users/logout`,
         type: 'POST',
         success: function(response) {
-            window.location.href = 'http://localhost/techQuiz/users/login';
+            window.location.href = `${hostUrl}/users/login`;
         },
         error: function(response) {
            flashy('failed to logout');

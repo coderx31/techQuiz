@@ -1,3 +1,5 @@
+var hostUrl = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz';
+
 const UserRouter = Backbone.Router.extend({
     routes: {
         "": "loginView",
@@ -37,7 +39,7 @@ function loginView() {
            this.model.save(
             {},
             {
-                url: 'http://localhost/techQuiz/users/login',
+                url: `${hostUrl}/users/login`,
                 success: function(userdata) {
                     flashy('login success', {
                         type: 'flashy__success',
@@ -49,7 +51,7 @@ function loginView() {
                     localStorage.setItem('user_id', userdata.attributes.user_id);
 
                     setTimeout(() => {
-                        window.location.href='http://localhost/techQuiz/questions';
+                        window.location.href=`${hostUrl}/questions`;
                     }, 2000);
                 },
                 error: function(model, response, option) {
@@ -100,14 +102,14 @@ function registerView() {
             this.model.save(
                 {},
                 {
-                    url: 'http://localhost/techQuiz/users/register',
+                    url: `${hostUrl}/users/register`,
                     success: function(model, response, option) {
                         flashy(`${response.responseJSON.error}`, {
                             type: 'flashy__success',
                             timeout: 2000
                         })
                         setTimeout(() => {
-                            window.location.href='http://localhost/techQuiz/users/login';
+                            window.location.href=`${hostUrl}/users/login`;
                         }, 2000);
                     },
                     error: function(model, response, option) {

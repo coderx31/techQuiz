@@ -1,59 +1,39 @@
 # create tables
 
 # users
-CREATE TABLE users (
-    user_id varchar(50) NOT NULL,
-    firstname varchar(50) NOT NULL,
-    lastname varchar(50) NOT NULL,
-    username varchar(50) UNIQUE NOT NULL,
-    email varchar(50) UNIQUE NOT NULL,
-    password varchar(255) NOT NULL,
-    PRIMARY KEY (user_id)
-);
+CREATE TABLE `users` (
+  `user_id` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # questions
-CREATE TABLE questions (
-    question_id varchar(50) NOT NULL,
-    user_id varchar(50) NOT NULL,
-    title varchar(255) NOT NULL,
-    body Text NOT NULL,
-    votes Int DEFAULT 0,
-    createdAt Timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    updatedAt Timestamp,
-    updated Int DEFAULT 0,
-    PRIMARY KEY (question_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
+CREATE TABLE `questions` (
+  `question_id` varchar(50) NOT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `body` text NOT NULL,
+  `votes` int(11) DEFAULT 0,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updatedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # answers
-CREATE TABLE answers (
-	answer_id varchar(50) NOT NULL,
-    body Text NOT NULL,
-    user_id varchar(50) NOT NULL,
-    question_id varchar(50) NOT NULL,
-    createdAt Timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    updatedAt Timestamp,
-    updated Int DEFAULT 0,
-    PRIMARY KEY (answer_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (question_id) REFERENCES questions(question_id)
-);
+CREATE TABLE `answers` (
+  `answer_id` varchar(50) NOT NULL,
+  `body` text NOT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `question_id` varchar(50) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updatedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `votes` int(11) NOT NULL DEFAULT 0,
+  `updated` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-# for authentication
-
-CREATE TABLE keys (
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    user_id varchar(50) NOT NULL,
-    key VARCHAR(40) NOT NULL,
-    level INT(2) NOT NULL,
-    ignore_limits TINYINT(1) NOT NULL DEFAULT '0',
-    is_private_key TINYINT(1)  NOT NULL DEFAULT '0',
-    ip_addresses TEXT NULL DEFAULT NULL,
-    date_created INT(11) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
 
 
 # insert test data into db

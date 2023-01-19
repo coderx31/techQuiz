@@ -1,3 +1,5 @@
+var hostUrl = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz';
+
 const QuestionRouter = Backbone.Router.extend({
     routes: {
         "": "allQuestionsView",
@@ -20,7 +22,7 @@ function allQuestionsView() {
     // create the collection
     const Questions = Backbone.Collection.extend({
         model: Question,
-        url: 'http://localhost/techQuiz/questions/get',
+        url: `${hostUrl}/questions/get`,
         parse: function(data) {
             return data.result;
         }
@@ -66,7 +68,7 @@ function allQuestionsView() {
 function questionView(question_id) {
     // create the model
     const Question = Backbone.Model.extend({
-        url: `http://localhost/techQuiz/questions/get?question_id=${question_id}`,
+        url: `${hostUrl}/questions/get?question_id=${question_id}`,
         parse: function(response, options) {
             return response.result;
         }
@@ -123,7 +125,7 @@ function questionView(question_id) {
             answer.save(
                 {},
                 {
-                    url: 'http://localhost/techQuiz/answers/create',
+                    url: `${hostUrl}/answers/create`,
                     headers: {
                         'x-auth': localStorage.getItem('token')
                     },
@@ -143,7 +145,7 @@ function questionView(question_id) {
         upVote: _.once(function() {
             if(localStorage.getItem('token')) {
                 $.ajax({
-                    url: `http://localhost/techQuiz/questions/upvote/${question_id}`,
+                    url: `${hostUrl}/questions/upvote/${question_id}`,
                     headers: {
                         'Content-Type': 'application/json',
                         'x-auth': localStorage.getItem('token')
@@ -160,13 +162,13 @@ function questionView(question_id) {
                     }
                 });
             } else {
-                window.location.href = 'http://localhost/techQuiz/users/login';
+                window.location.href = `${hostUrl}/users/login`;
             }
         }),
         downVote: _.once(function() {
             if (localStorage.getItem('token')) {
                 $.ajax({
-                    url: `http://localhost/techQuiz/questions/downvote/${question_id}`,
+                    url: `${hostUrl}/questions/downvote/${question_id}`,
                     headers: {
                         'Content-Type': 'application/json',
                         'x-auth': localStorage.getItem('token')
@@ -183,20 +185,20 @@ function questionView(question_id) {
                     }
                 });
             } else {
-                window.location.href = 'http://localhost/techQuiz/users/login';
+                window.location.href = `${hostUrl}/users/login`;
             }
         }),
         deleteQuestion: function() {
             if(localStorage.getItem('token')) {
                $.ajax({
-                url: `http://localhost/techQuiz/questions/delete/${question_id}`,
+                url: `${hostUrl}/questions/delete/${question_id}`,
                 headers: {
                     'Content-Type': 'application/json',
                     'x-auth': localStorage.getItem('token')
                 },
                 type: 'DELETE',
                 success: function(response) {
-                    window.location.href = 'http://localhost/techQuiz/questions/';
+                    window.location.href = `${hostUrl}/questions/`;
                 },
                 error: function(response) {
                     flashy(`${response.error}`, {
@@ -206,13 +208,13 @@ function questionView(question_id) {
                 }
                })
             } else {
-                window.location.href = 'http://localhost/techQuiz/users/login';
+                window.location.href = `${hostUrl}/users/login`;
             }
         },
         deleteAnswer: function() {
             const answer_id = $('#answer_id').val();
             $.ajax({
-                url: `http://localhost/techQuiz/answers/delete/${answer_id}`,
+                url: `${hostUrl}/answers/delete/${answer_id}`,
                 headers: {
                     'Content-Type': 'application/json',
                     'x-auth': localStorage.getItem('token')
@@ -237,7 +239,7 @@ function questionView(question_id) {
         editAnswer: function() {
             const answer_id = $('#answer_id').val();
             const Answer = Backbone.Model.extend({
-                url: `http://localhost/techQuiz/answers/get?answer_id=${answer_id}`,
+                url: `${hostUrl}/answers/get?answer_id=${answer_id}`,
                 parse: function(response, options) {
                     return response.result;
                 }
@@ -267,7 +269,7 @@ function questionView(question_id) {
                 const answer_id = $('#answer_id').val();
                 console.log(answer_id);
                 $.ajax({
-                    url: `http://localhost/techQuiz/answers/upvote/${answer_id}`,
+                    url: `${hostUrl}/answers/upvote/${answer_id}`,
                     headers: {
                         'Content-Type': 'application/json',
                         'x-auth': localStorage.getItem('token')
@@ -285,7 +287,7 @@ function questionView(question_id) {
                     }
                 });
             } else {
-                window.location.href = 'http://localhost/techQuiz/users/login';
+                window.location.href = `${hostUrl}/users/login`;
             }
         },
         downVoteAnswer: function() {
@@ -293,7 +295,7 @@ function questionView(question_id) {
                 const answer_id = $('#answer_id').val();
                 console.log(answer_id);
                 $.ajax({
-                    url: `http://localhost/techQuiz/answers/downvote/${answer_id}`,
+                    url: `${hostUrl}/answers/downvote/${answer_id}`,
                     headers: {
                         'Content-Type': 'application/json',
                         'x-auth': localStorage.getItem('token')
@@ -310,7 +312,7 @@ function questionView(question_id) {
                     }
                 });
             } else {
-                window.location.href = 'http://localhost/techQuiz/users/login';
+                window.location.href = `${hostUrl}/users/login`;
             }
         }
     });
@@ -349,12 +351,12 @@ function askQuestionView() {
                 this.model.save(
                     {},
                     {
-                        url: 'http://localhost/techQuiz/questions/create',
+                        url: `${hostUrl}/questions/create`,
                         headers: {
                             'x-auth': localStorage.getItem('token')
                         },
                         success: function(model, response, option) {
-                            window.location.href='http://localhost/techQuiz/questions';
+                            window.location.href=`${hostUrl}/questions`;
                         },
                         error: function(model, response, error) {
                             flashy(`${response.responseJSON.error}`, {
@@ -369,7 +371,7 @@ function askQuestionView() {
 
         const askQuestion = new AskQuestion();
     } else {
-        window.location.href = 'http://localhost/techQuiz/users/login';
+        window.location.href = `${hostUrl}/users/login`;
     }
 
 }
@@ -378,7 +380,7 @@ function askQuestionView() {
 function editQuestionView(question_id) {
 
     const Question = Backbone.Model.extend({
-        url: `http://localhost/techQuiz/questions/get?question_id=${question_id}`,
+        url: `${hostUrl}/questions/get?question_id=${question_id}`,
         isNew: function(){
             return false;
         },
@@ -430,7 +432,7 @@ function editQuestionView(question_id) {
             this.model.save(
                 {},
                 {
-                    url: `http://localhost/techQuiz/questions/update/${question_id}`,
+                    url: `${hostUrl}/questions/update/${question_id}`,
                     headers: {
                         'x-auth': localStorage.getItem('token')
                     },
@@ -439,7 +441,7 @@ function editQuestionView(question_id) {
                             type: 'flashy__success',
                             timeout: 2000
                         })
-                        window.location.href='http://localhost/techQuiz/questions'
+                        window.location.href=`${hostUrl}/questions`
                     },
                     error: function(response) {
                         flashy(`${response.responseJSON.error}`, {
