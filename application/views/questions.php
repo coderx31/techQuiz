@@ -58,6 +58,9 @@
                 <% _.each(question.answers, function(answer) { %>
                     <div class="answers">
                         <div class="votes">
+                                <form>
+                                    <input type="hidden" name="answer_id" id="answer_id" value="<%= answer.answer_id %>">
+                                </form>
                         <!-- user cannot vote for their answer -->
                         <% if (localStorage.getItem('user_id') !== answer.user_id) { %>
                             <a><i class="fa-solid fa-caret-up" class="answerupvote" id="answerUpvote"></i></a>
@@ -72,9 +75,6 @@
                             <small>Updated : <%= answer.updated == 0 ? false : true %></small>
                             <% if (localStorage.getItem('user_id') === answer.user_id) { %>
                             <div class="actionBtns">
-                                <form>
-                                    <input type="hidden" name="answer_id" id="answer_id" value="<%= answer.answer_id %>">
-                                </form>
                                 <a id="editAnswer">Edit</a>
                                 <button class="delete" id="deleteAnswer">Delete</button>
                             </div>
