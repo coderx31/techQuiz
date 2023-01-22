@@ -22,10 +22,10 @@
             <ul class="navigation">
                 <li id="homeTab"><a href="<?php echo base_url(); ?>">Home</a></li>
                 <li id="aboutTab"><a href="<?php echo base_url(); ?>index.php/about">About</a></li>
-                <li id="contactTab"><a href="<?php echo base_url(); ?>contact">Contact</a></li>
-                <li id="questionTab"><a href="<?php echo base_url(); ?>questions">Questions</a></li>
-                <li id="loginTab"><a href="<?php echo base_url(); ?>users/login">Login</a></li>
-                <li id="registerTab"><a href="<?php echo base_url(); ?>users/login#/register">Register</a></li>
+                <li id="contactTab"><a href="<?php echo base_url(); ?>index.php/contact">Contact</a></li>
+                <li id="questionTab"><a href="<?php echo base_url(); ?>index.php/questions">Questions</a></li>
+                <li id="loginTab"><a href="<?php echo base_url(); ?>index.php/users/login">Login</a></li>
+                <li id="registerTab"><a href="<?php echo base_url(); ?>index.php/users/login#/register">Register</a></li>
                 <li id="logoutTab"><a href="">Logout</a></li>
             </ul>
         </header>

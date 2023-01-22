@@ -1,4 +1,4 @@
-var hostUrl = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz';
+var hostUrl = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz/index.php';
 
 
 // access askQuestion div
