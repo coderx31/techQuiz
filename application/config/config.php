@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz';
+$config['base_url'] = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz/index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['base_url'] = 'https://w1761547.users.ecs.westminster.ac.uk/techQuiz';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
