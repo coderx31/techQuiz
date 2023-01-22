@@ -10,8 +10,8 @@
 		</div>
 
 		<div class="questions">
-			<a href="<?php echo base_url(); ?>questions">all Questions</a>
-			<a href="<?php echo base_url(); ?>questions#/askquestion">Ask Questions</a>
+			<a href="<?php echo base_url(); ?>index.php/questions">all Questions</a>
+			<a href="<?php echo base_url(); ?>index.php/questions#/askquestion">Ask Questions</a>
 		</div>
 	</div>
 

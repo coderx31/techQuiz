@@ -23,7 +23,7 @@
                     <input type="submit" value="Sign In">
                 </div>
                 <div class="inputBx">
-                    <p>Don't have an account? <a href="<?php echo base_url(); ?>users/login#register"">Sign Up</a></p>
+                    <p>Don't have an account? <a href="<?php echo base_url(); ?>index.php/users/login#register"">Sign Up</a></p>
                 </div>
             </form>
         </div>
@@ -64,7 +64,7 @@
                     <input type="submit" value="Sign Up">
                 </div>
                 <div class="inputBx">
-                    <p>Already have an account? <a href="<?php echo base_url(); ?>users/login"">Sign In</a></p>
+                    <p>Already have an account? <a href="<?php echo base_url(); ?>index.php/users/login"">Sign In</a></p>
                 </div>
             </form>
         </div>
